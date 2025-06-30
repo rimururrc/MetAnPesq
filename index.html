@@ -14,7 +14,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background: linear-gradient(135deg, #0c2461, #1e3799, #0c2461);
             color: #333;
             min-height: 100vh;
             padding: 20px;
@@ -25,15 +25,16 @@
             margin: 0 auto;
             background-color: rgba(255, 255, 255, 0.97);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             overflow: hidden;
         }
         
         header {
-            background: linear-gradient(to right, #2c3e50, #4a6491);
+            background: linear-gradient(to right, #1e3c72, #2a5298);
             color: white;
             text-align: center;
             padding: 25px 20px;
+            border-bottom: 3px solid #ff9d00;
         }
         
         h1 {
@@ -47,6 +48,7 @@
             font-size: 1.1rem;
             opacity: 0.9;
             margin-top: 5px;
+            color: #ffd166;
         }
         
         .input-group {
@@ -68,15 +70,16 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #2c3e50;
+            color: #1a237e;
         }
         
         .input-field input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #3498db;
+            border: 2px solid #1e88e5;
             border-radius: 8px;
             font-size: 1rem;
+            background-color: #e3f2fd;
         }
         
         .action-buttons {
@@ -102,12 +105,12 @@
         }
         
         .research-btn {
-            background: linear-gradient(to right, #3498db, #2c3e50);
+            background: linear-gradient(to right, #1e88e5, #0d47a1);
             color: white;
         }
         
         .download-btn {
-            background: linear-gradient(to right, #27ae60, #16a085);
+            background: linear-gradient(to right, #43a047, #1b5e20);
             color: white;
         }
         
@@ -125,15 +128,17 @@
             flex-wrap: wrap;
             gap: 10px;
             padding: 15px 25px;
-            background-color: #eaf2ff;
+            background-color: #e3f2fd;
             justify-content: center;
+            border-top: 2px solid #bbdefb;
+            border-bottom: 2px solid #bbdefb;
         }
         
         .ia-btn {
             padding: 10px 15px;
             border: none;
             border-radius: 8px;
-            background: linear-gradient(to right, #5c6bc0, #3949ab);
+            background: linear-gradient(to right, #5e35b1, #4527a0);
             color: white;
             font-weight: bold;
             cursor: pointer;
@@ -146,7 +151,7 @@
         }
         
         .ia-btn:hover {
-            background: linear-gradient(to right, #3949ab, #283593);
+            background: linear-gradient(to right, #4527a0, #311b92);
             transform: translateY(-2px);
         }
         
@@ -159,25 +164,28 @@
             min-height: 500px;
             overflow: hidden;
             position: relative;
+            border: 1px solid #e0e0e0;
         }
         
-        .incognito-badge {
+        .brave-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(255, 157, 0, 0.9);
             color: white;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 15px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             z-index: 10;
             display: flex;
             align-items: center;
             gap: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         .browser-header {
-            background: linear-gradient(to right, #34495e, #2c3e50);
+            background: linear-gradient(to right, #1a237e, #283593);
             padding: 10px 15px;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
@@ -197,20 +205,42 @@
             border-radius: 50%;
         }
         
-        .close { background-color: #e74c3c; }
-        .minimize { background-color: #f39c12; }
-        .maximize { background-color: #2ecc71; }
+        .close { background-color: #f44336; }
+        .minimize { background-color: #ffc107; }
+        .maximize { background-color: #4caf50; }
         
         .url-bar {
             flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 5px 15px;
-            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 8px 20px;
+            color: rgba(255, 255, 255, 0.95);
             font-size: 0.9rem;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .url-bar::before {
+            content: "🔒";
+            font-size: 0.9rem;
+        }
+        
+        .brave-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            background: #ff9d00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
         }
         
         iframe {
@@ -225,21 +255,30 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #27ae60;
+            background: #43a047;
             color: white;
             padding: 15px 25px;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1000;
+            animation: fadeInOut 3s ease;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
         }
         
         footer {
             text-align: center;
             padding: 20px;
-            background: linear-gradient(to right, #2c3e50, #1a2a6c);
+            background: linear-gradient(to right, #1a237e, #0d47a1);
             color: white;
             font-size: 1rem;
+            border-top: 3px solid #ff9d00;
         }
         
         @media (max-width: 900px) {
@@ -256,6 +295,11 @@
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 justify-content: flex-start;
+                padding: 12px;
+            }
+            
+            .ia-btn {
+                flex-shrink: 0;
             }
         }
         
@@ -268,14 +312,18 @@
                 font-size: 0.8rem;
                 padding: 8px 12px;
             }
+            
+            .browser-container {
+                margin: 0 15px 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-brain"></i> Metodologia de Análise Crítica</h1>
-            <p class="subtitle">Ferramenta integrada para pesquisa estratégica</p>
+            <h1><i class="fas fa-search"></i> Metodologia de Análise Crítica</h1>
+            <p class="subtitle">Ferramenta integrada para pesquisa estratégica com navegação Brave</p>
         </header>
         
         <div class="input-group">
@@ -299,10 +347,10 @@
             
             <div class="action-buttons">
                 <button class="action-btn research-btn" id="researchBtn">
-                    <i class="fas fa-search"></i> Pesquisa
+                    <i class="fas fa-copy"></i> Copiar Prompt de Pesquisa
                 </button>
                 <button class="action-btn download-btn" id="downloadBtn">
-                    <i class="fas fa-download"></i> Download
+                    <i class="fas fa-file-download"></i> Copiar Prompt de Download
                 </button>
             </div>
         </div>
@@ -335,8 +383,8 @@
         </div>
         
         <div class="browser-container">
-            <div class="incognito-badge">
-                <i class="fas fa-user-secret"></i> Modo Anônimo
+            <div class="brave-badge">
+                <i class="fas fa-shield-alt"></i> Navegador Brave - Modo Privado
             </div>
             <div class="browser-header">
                 <div class="browser-controls">
@@ -344,13 +392,16 @@
                     <div class="control-btn minimize"></div>
                     <div class="control-btn maximize"></div>
                 </div>
-                <div class="url-bar" id="current-url">https://chatgpt.com/</div>
+                <div class="url-bar" id="current-url">
+                    <div class="brave-icon">B</div>
+                    https://search.brave.com
+                </div>
             </div>
-            <iframe id="ia-browser" src="https://chatgpt.com/"></iframe>
+            <iframe id="ia-browser" src="https://search.brave.com"></iframe>
         </div>
         
         <footer>
-            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica</p>
+            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica com Navegador Brave</p>
         </footer>
     </div>
 
@@ -362,7 +413,10 @@
         // Função para abrir sites de IA no iframe
         function openIA(url) {
             document.getElementById('ia-browser').src = url;
-            document.getElementById('current-url').textContent = url;
+            document.getElementById('current-url').innerHTML = `
+                <div class="brave-icon">B</div>
+                ${url}
+            `;
         }
         
         // Gerar prompt de pesquisa
@@ -450,7 +504,7 @@ O documento deve estar pronto para edição posterior e compatível com programa
                 notification.style.display = 'block';
                 notification.innerHTML = '<i class="fas fa-check-circle"></i> Prompt de pesquisa copiado para a área de transferência!';
                 
-                // Esconder notificação após 3 segundos
+                // Esconder notificação após animação
                 setTimeout(() => {
                     notification.style.display = 'none';
                 }, 3000);
@@ -468,12 +522,15 @@ O documento deve estar pronto para edição posterior e compatível com programa
                 notification.style.display = 'block';
                 notification.innerHTML = '<i class="fas fa-check-circle"></i> Prompt de download copiado para a área de transferência!';
                 
-                // Esconder notificação após 3 segundos
+                // Esconder notificação após animação
                 setTimeout(() => {
                     notification.style.display = 'none';
                 }, 3000);
             });
         });
+        
+        // Inicializar com o navegador Brave
+        openIA('https://search.brave.com');
     </script>
 </body>
 </html>
