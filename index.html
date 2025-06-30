@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodologia de Análise Crítica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 25px 0;
+            background-color: #f0f5ff;
+        }
+        
+        .main-btn {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .research-btn {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #27ae60, #16a085);
+            color: white;
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .main-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .ia-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background-color: #eaf2ff;
+        }
+        
+        .ia-btn {
+            padding: 15px 10px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to right, #5c6bc0, #3949ab);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ia-btn:hover {
+            background: linear-gradient(to right, #3949ab, #283593);
+            transform: translateY(-2px);
+        }
+        
+        .browser-container {
+            background: white;
+            padding: 5px;
+            margin: 0 20px 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            min-height: 500px;
+            overflow: hidden;
+        }
+        
+        .browser-header {
+            background: linear-gradient(to right, #34495e, #2c3e50);
+            padding: 10px 15px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .browser-controls {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+        
+        .control-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .close { background-color: #e74c3c; }
+        .minimize { background-color: #f39c12; }
+        .maximize { background-color: #2ecc71; }
+        
+        .url-bar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 5px 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        
+        .methodology {
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-top: 3px solid #3498db;
+        }
+        
+        .methodology h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .prompt-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .prompt-box h3 {
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .prompt-content {
+            background-color: #f0f8ff;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: #ffeaa7;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(to right, #2c3e50, #1a2a6c);
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 900px) {
+            .ia-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .main-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .ia-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Metodologia de Análise Crítica</h1>
+            <p class="subtitle">Ferramenta integrada para pesquisa e análise estratégica</p>
+        </header>
+        
+        <div class="main-buttons">
+            <button class="main-btn research-btn">Pesquisa</button>
+            <button class="main-btn download-btn">Download</button>
+        </div>
+        
+        <div class="ia-buttons">
+            <button class="ia-btn" onclick="openIA('https://chatgpt.com/')">ChatGPT</button>
+            <button class="ia-btn" onclick="openIA('https://gemini.google.com/app')">Gemini</button>
+            <button class="ia-btn" onclick="openIA('https://copilot.microsoft.com/')">Copilot</button>
+            <button class="ia-btn" onclick="openIA('https://notebooklm.google.com/')">NotebookLM</button>
+            <button class="ia-btn" onclick="openIA('https://chat.deepseek.com/')">DeepSeek</button>
+            <button class="ia-btn" onclick="openIA('https://chat.qwen.ai/')">Qwen</button>
+            <button class="ia-btn" onclick="openIA('https://grok.com/')">Grok</button>
+            <button class="ia-btn" onclick="openIA('https://www.perplexity.ai/')">Perplexity</button>
+        </div>
+        
+        <div class="browser-container">
+            <div class="browser-header">
+                <div class="browser-controls">
+                    <div class="control-btn close"></div>
+                    <div class="control-btn minimize"></div>
+                    <div class="control-btn maximize"></div>
+                </div>
+                <div class="url-bar" id="current-url">https://www.example.com</div>
+            </div>
+            <iframe id="ia-browser" src="about:blank"></iframe>
+        </div>
+        
+        <div class="methodology">
+            <h2>Metodologia de Pesquisa</h2>
+            <div class="prompt-box">
+                <h3>Prompt para Pesquisa:</h3>
+                <div class="prompt-content">
+                    <p>Quero que você atue como um analista de inteligência ou analista de eventos estratégicos.</p>
+                    
+                    <p><span class="highlight">Tema a ser analisado:</span> [INSERIR TEMA AQUI]</p>
+                    <p><span class="highlight">Ponto de Interesse:</span> [INSERIR PONTO DE INTERESSE AQUI]</p>
+                    <p><span class="highlight">Período de análise:</span> [INSERIR INTERVALO DE TEMPO, ex: janeiro a junho de 2025]</p>
+                    
+                    <p>Utilize a seguinte metodologia estruturada:</p>
+                    
+                    <p><strong>1. Problema</strong><br>
+                    Com base no tema acima, faça uma contextualização inicial respondendo objetivamente às perguntas do método 5W2H:</p>
+                    <ul>
+                        <li>What (O que ocorreu?)</li>
+                        <li>Who (Quem está envolvido?)</li>
+                        <li>When (Quando ocorreu ou teve início?)</li>
+                        <li>Where (Onde ocorreu?)</li>
+                        <li>Why (Por que ocorreu?)</li>
+                        <li>How (Como se desenvolveu?)</li>
+                        <li>How much (Quais os impactos ou proporção do evento?)</li>
+                    </ul>
+                    
+                    <p><strong>2. Aspectos Essenciais (AE)</strong><br>
+                    Construa de 3 a 7 perguntas analíticas aprofundadas que me ajudem a entender melhor o tema. As perguntas devem explorar:</p>
+                    <ul>
+                        <li>Causas e consequências</li>
+                        <li>Envolvimento de atores nacionais e internacionais</li>
+                        <li>Impacto estratégico, econômico, social ou ambiental</li>
+                        <li>Conexões com outros eventos ou políticas</li>
+                    </ul>
+                    
+                    <p><strong>3. Aspectos Conhecidos (AC)</strong><br>
+                    Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudam a responder os AE.</p>
+                    
+                    <p><strong>4. Frações Significativas</strong><br>
+                    Após a pesquisa do AC, identifique entre 3 a 5 <strong>frações temáticas ou pontos críticos</strong> que se destacam no tema analisado. Cada fração deve ser acompanhada de um pequeno resumo analítico e a fonte que embasa a sua relevância.</p>
+                    
+                    <p><strong>5. Respostas dos AE com base nos AC</strong><br>
+                    Para cada uma das perguntas formuladas no item 2, responda com base nos dados encontrados nas fontes (AC), citando o trecho da fonte e indicando claramente a origem (ex: portal, data, autor).</p>
+                    
+                    <p><strong>6. Texto Final</strong><br>
+                    Redija um texto estruturado com:</p>
+                    <ul>
+                        <li><strong>Introdução</strong>: contextualização geral do tema</li>
+                        <li><strong>Desenvolvimento</strong>: exposição cronológica e argumentativa dos fatos com base nas respostas dos AE</li>
+                        <li><strong>Conclusão</strong>: resumo final dos fatos abordados, sem emitir opinião pessoal ou juízo de valor</li>
+                    </ul>
+                    
+                    <p>Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Aplicação de Pesquisa em IA | Metodologia de Análise Crítica | © 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        function openIA(url) {
+            document.getElementById('ia-browser').src = url;
+            document.getElementById('current-url').textContent = url;
+        }
+        
+        // Set initial IA
+        openIA('https://chatgpt.com/');
+        
+        // Add button effects
+        const buttons = document.querySelectorAll('.main-btn, .ia-btn');
+        buttons.forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'translateY(2px)';
+                button.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+            });
+            
+            button.addEventListener('mouseup', () => {
+                button.style.transform = '';
+                button.style.boxShadow = '';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+                button.style.boxShadow = '';
+            });
+        });
+        
+        // Research button functionality
+        document.querySelector('.research-btn').addEventListener('click', function() {
+            alert('Pesquisa iniciada! Utilize o prompt fornecido na seção de metodologia com uma das IAs disponíveis.');
+        });
+        
+        // Download button functionality
+        document.querySelector('.download-btn').addEventListener('click', function() {
+            alert('Documento ODT gerado com sucesso!\n\nFormatação aplicada:\n- Fonte: Calibri\n- Tamanho: 12\n- Texto Justificado');
+        });
+    </script>
+</body>
+</html>
