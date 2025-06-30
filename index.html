@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analista de Inteligência - Ferramenta de Pesquisa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -35,36 +33,63 @@
             background: linear-gradient(to right, #2c3e50, #4a6491);
             color: white;
             text-align: center;
-            padding: 30px 20px;
-            position: relative;
+            padding: 25px 20px;
         }
         
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         
-        .main-buttons {
+        .input-group {
+            padding: 25px;
+            background-color: #f0f5ff;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .input-field {
+            flex: 1;
+        }
+        
+        .input-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .input-field input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            padding: 25px 0;
-            background-color: #f0f5ff;
-            border-top: 2px solid #d1d8e0;
-            border-bottom: 2px solid #d1d8e0;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 0 25px 25px;
         }
         
-        .main-btn {
-            padding: 15px 40px;
-            font-size: 1.3rem;
+        .action-btn {
+            padding: 12px 30px;
+            font-size: 1.1rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -86,27 +111,28 @@
             color: white;
         }
         
-        .main-btn:hover {
+        .action-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
         
-        .main-btn:active {
+        .action-btn:active {
             transform: translateY(1px);
         }
         
         .ia-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px 25px;
             background-color: #eaf2ff;
+            justify-content: center;
         }
         
         .ia-btn {
-            padding: 15px 10px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             background: linear-gradient(to right, #5c6bc0, #3949ab);
             color: white;
             font-weight: bold;
@@ -115,8 +141,8 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         
         .ia-btn:hover {
@@ -127,11 +153,27 @@
         .browser-container {
             background: white;
             padding: 5px;
-            margin: 0 20px 30px 20px;
+            margin: 0 25px 25px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             min-height: 500px;
             overflow: hidden;
+            position: relative;
+        }
+        
+        .incognito-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .browser-header {
@@ -179,56 +221,6 @@
             border-bottom-right-radius: 8px;
         }
         
-        .prompt-section {
-            padding: 30px;
-            background-color: #f8f9fa;
-            border-top: 3px solid #3498db;
-            border-bottom: 3px solid #3498db;
-        }
-        
-        .prompt-section h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-        
-        .prompt-box {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .prompt-box h3 {
-            color: #2980b9;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .prompt-content {
-            background-color: #f0f8ff;
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .highlight {
-            background-color: #ffeaa7;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-        
         .copy-notification {
             position: fixed;
             top: 20px;
@@ -244,113 +236,37 @@
         
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             background: linear-gradient(to right, #2c3e50, #1a2a6c);
             color: white;
-            font-size: 1.1rem;
-        }
-        
-        .input-group {
-            margin: 20px auto;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        
-        .input-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .input-field {
-            flex: 1;
-        }
-        
-        .input-field label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .input-field input, .input-field textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #3498db;
-            border-radius: 8px;
             font-size: 1rem;
         }
         
-        .input-field textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        
-        .instructions {
-            text-align: center;
-            padding: 20px;
-            background: #e3f2fd;
-            border-radius: 10px;
-            margin: 20px;
-            border-left: 5px solid #2196f3;
-        }
-        
-        .instructions h3 {
-            color: #1976d2;
-            margin-bottom: 15px;
-        }
-        
-        .steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .step {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 220px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .step i {
-            font-size: 2.5rem;
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-        
         @media (max-width: 900px) {
-            .ia-buttons {
-                grid-template-columns: repeat(2, 1fr);
+            .input-row {
+                flex-direction: column;
             }
             
-            .main-buttons {
+            .action-buttons {
                 flex-direction: column;
-                align-items: center;
                 gap: 15px;
             }
             
-            .input-row {
-                flex-direction: column;
+            .ia-buttons {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
             }
         }
         
         @media (max-width: 600px) {
-            .ia-buttons {
-                grid-template-columns: 1fr;
-            }
-            
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
-            .steps {
-                flex-direction: column;
-                align-items: center;
+            .ia-btn {
+                font-size: 0.8rem;
+                padding: 8px 12px;
             }
         }
     </style>
@@ -359,17 +275,8 @@
     <div class="container">
         <header>
             <h1><i class="fas fa-brain"></i> Metodologia de Análise Crítica</h1>
-            <p class="subtitle">Ferramenta integrada para pesquisa e análise estratégica</p>
+            <p class="subtitle">Ferramenta integrada para pesquisa estratégica</p>
         </header>
-        
-        <div class="main-buttons">
-            <button class="main-btn research-btn" id="researchBtn">
-                <i class="fas fa-search"></i> Pesquisa
-            </button>
-            <button class="main-btn download-btn" id="downloadBtn">
-                <i class="fas fa-download"></i> Download
-            </button>
-        </div>
         
         <div class="input-group">
             <div class="input-row">
@@ -388,6 +295,15 @@
                     <label for="period"><i class="fas fa-calendar-alt"></i> Período de análise:</label>
                     <input type="text" id="period" placeholder="Ex: Janeiro a Junho de 2025">
                 </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn research-btn" id="researchBtn">
+                    <i class="fas fa-search"></i> Pesquisa
+                </button>
+                <button class="action-btn download-btn" id="downloadBtn">
+                    <i class="fas fa-download"></i> Download
+                </button>
             </div>
         </div>
         
@@ -419,6 +335,9 @@
         </div>
         
         <div class="browser-container">
+            <div class="incognito-badge">
+                <i class="fas fa-user-secret"></i> Modo Anônimo
+            </div>
             <div class="browser-header">
                 <div class="browser-controls">
                     <div class="control-btn close"></div>
@@ -430,87 +349,8 @@
             <iframe id="ia-browser" src="https://chatgpt.com/"></iframe>
         </div>
         
-        <div class="instructions">
-            <h3>Como utilizar esta ferramenta:</h3>
-            <div class="steps">
-                <div class="step">
-                    <i class="fas fa-edit"></i>
-                    <h4>Passo 1</h4>
-                    <p>Preencha os campos acima com o tema, ponto de interesse e período</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-copy"></i>
-                    <h4>Passo 2</h4>
-                    <p>Clique em "Pesquisa" para copiar o prompt para a área de transferência</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-window-restore"></i>
-                    <h4>Passo 3</h4>
-                    <p>Selecione uma IA e cole o prompt na janela de conversa</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-download"></i>
-                    <h4>Passo 4</h4>
-                    <p>Clique em "Download" para salvar o resultado como ODT</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="prompt-section">
-            <h2><i class="fas fa-code"></i> Prompt para Pesquisa</h2>
-            <div class="prompt-box">
-                <h3><i class="fas fa-terminal"></i> Estrutura do Prompt:</h3>
-                <div class="prompt-content" id="promptContent">
-Quero que você atue como um analista de inteligência ou analista de eventos estratégicos.
-
-Tema a ser analisado: [INSERIR TEMA AQUI] 
-Ponto de Interesse: [INSERIR PONTO DE INTERESSE AQUI] 
-Período de análise: [INSERIR INTERVALO DE TEMPO, ex: janeiro a junho de 2025]
-
-Utilize a seguinte metodologia estruturada:
-
-1. **Problema**  
-   Com base no tema acima, faça uma contextualização inicial respondendo objetivamente às perguntas do método 5W2H:  
-   - What (O que ocorreu?)  
-   - Who (Quem está envolvido?)  
-   - When (Quando ocorreu ou teve início?)  
-   - Where (Onde ocorreu?)  
-   - Why (Por que ocorreu?)  
-   - How (Como se desenvolveu?)  
-   - How much (Quais os impactos ou proporção do evento?)
-
-2. **Aspectos Essenciais (AE)**  
-   Construa de 3 a 7 perguntas analíticas aprofundadas que me ajudem a entender melhor o tema. As perguntas devem explorar:
-   - Causas e consequências
-   - Envolvimento de atores nacionais e internacionais
-   - Impacto estratégico, econômico, social ou ambiental
-   - Conexões com outros eventos ou políticas
-
-3. **Aspectos Conhecidos (AC)**  
-   Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudam a responder os AE.
-
-4. **Frações Significativas**  
-   Após a pesquisa do AC, identifique entre 3 a 5 **frações temáticas ou pontos críticos** que se destacam no tema analisado. Cada fração deve ser acompanhada de um pequeno resumo analítico e a fonte que embasa a sua relevância. Exemplos:
-   - Fração 1: [Título ou conceito-chave]  
-     - Resumo: [Explicação ou relevância]  
-     - Fonte: [Citação]
-
-5. **Respostas dos AE com base nos AC**  
-   Para cada uma das perguntas formuladas no item 2, responda com base nos dados encontrados nas fontes (AC), citando o trecho da fonte e indicando claramente a origem (ex: portal, data, autor).
-
-6. **Texto Final**  
-   Redija um texto estruturado com:
-   - **Introdução**: contextualização geral do tema
-   - **Desenvolvimento**: exposição cronológica e argumentativa dos fatos com base nas respostas dos AE
-   - **Conclusão**: resumo final dos fatos abordados, sem emitir opinião pessoal ou juízo de valor
-
-Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.
-                </div>
-            </div>
-        </div>
-        
         <footer>
-            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica | Desenvolvido para Profissionais de Inteligência</p>
+            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica</p>
         </footer>
     </div>
 
@@ -525,8 +365,8 @@ Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.
             document.getElementById('current-url').textContent = url;
         }
         
-        // Gerar prompt personalizado
-        function generatePrompt() {
+        // Gerar prompt de pesquisa
+        function generateResearchPrompt() {
             const theme = document.getElementById('theme').value || '[INSERIR TEMA AQUI]';
             const interest = document.getElementById('interest').value || '[INSERIR PONTO DE INTERESSE AQUI]';
             const period = document.getElementById('period').value || '[INSERIR INTERVALO DE TEMPO, ex: janeiro a junho de 2025]';
@@ -557,7 +397,7 @@ Utilize a seguinte metodologia estruturada:
    - Conexões com outros eventos ou políticas
 
 3. **Aspectos Conhecidos (AC)**  
-   Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudam a responder os AE.
+   Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudem a responder os AE.
 
 4. **Frações Significativas**  
    Após a pesquisa do AC, identifique entre 3 a 5 **frações temáticas ou pontos críticos** que se destacam no tema analisado. Cada fração deve ser acompanhada de um pequeno resumo analítico e a fonte que embasa a sua relevância.
@@ -574,15 +414,41 @@ Utilize a seguinte metodologia estruturada:
 Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.`;
         }
         
-        // Copiar prompt para área de transferência
+        // Gerar prompt de download
+        function generateDownloadPrompt() {
+            return `Por favor, gere o documento de análise no formato .odt com as seguintes especificações:
+
+1. Formatação:
+   - Fonte: Calibri
+   - Tamanho da fonte: 12
+   - Texto Justificado
+   - Manter cores pré-definidas do modelo original
+
+2. Estrutura:
+   - Cabeçalho com título do documento
+   - Seção de introdução
+   - Análise detalhada com subseções
+   - Conclusão
+   - Referências bibliográficas
+
+3. Conteúdo:
+   - Inclua todos os pontos da análise estratégica
+   - Mantenha a estrutura metodológica completa
+   - Adicione tabelas e gráficos se necessário
+
+O documento deve estar pronto para edição posterior e compatível com programas como LibreOffice e OpenOffice.`;
+        }
+        
+        // Copiar prompt de pesquisa
         document.getElementById('researchBtn').addEventListener('click', function() {
-            const promptText = generatePrompt();
+            const promptText = generateResearchPrompt();
             
             // Copiar para área de transferência
             navigator.clipboard.writeText(promptText).then(() => {
                 // Mostrar notificação
                 const notification = document.getElementById('copyNotification');
                 notification.style.display = 'block';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i> Prompt de pesquisa copiado para a área de transferência!';
                 
                 // Esconder notificação após 3 segundos
                 setTimeout(() => {
@@ -591,21 +457,23 @@ Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.`;
             });
         });
         
-        // Simular download (funcionalidade completa requer backend)
+        // Copiar prompt de download
         document.getElementById('downloadBtn').addEventListener('click', function() {
-            alert('Documento ODT gerado com sucesso!\n\nFormatação aplicada:\n- Fonte: Calibri\n- Tamanho: 12\n- Texto Justificado\n\nEm uma implementação completa, esta função geraria um arquivo .odt com o conteúdo formatado.');
-        });
-        
-        // Atualizar prompt ao digitar
-        const inputs = document.querySelectorAll('#theme, #interest, #period');
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                document.getElementById('promptContent').textContent = generatePrompt();
+            const promptText = generateDownloadPrompt();
+            
+            // Copiar para área de transferência
+            navigator.clipboard.writeText(promptText).then(() => {
+                // Mostrar notificação
+                const notification = document.getElementById('copyNotification');
+                notification.style.display = 'block';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i> Prompt de download copiado para a área de transferência!';
+                
+                // Esconder notificação após 3 segundos
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
             });
         });
-        
-        // Inicializar com o prompt padrão
-        document.getElementById('promptContent').textContent = generatePrompt();
     </script>
 </body>
 </html>
