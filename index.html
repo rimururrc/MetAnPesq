@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metodologia de Análise Crítica</title>
+    <title>Analista de Inteligência - Ferramenta de Pesquisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -22,7 +25,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.97);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
@@ -33,6 +36,7 @@
             color: white;
             text-align: center;
             padding: 30px 20px;
+            position: relative;
         }
         
         h1 {
@@ -54,6 +58,8 @@
             gap: 30px;
             padding: 25px 0;
             background-color: #f0f5ff;
+            border-top: 2px solid #d1d8e0;
+            border-bottom: 2px solid #d1d8e0;
         }
         
         .main-btn {
@@ -65,6 +71,9 @@
             transition: all 0.3s ease;
             font-weight: bold;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .research-btn {
@@ -104,6 +113,10 @@
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .ia-btn:hover {
@@ -151,7 +164,7 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 5px 15px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.9rem;
             overflow: hidden;
             white-space: nowrap;
@@ -166,13 +179,14 @@
             border-bottom-right-radius: 8px;
         }
         
-        .methodology {
+        .prompt-section {
             padding: 30px;
             background-color: #f8f9fa;
             border-top: 3px solid #3498db;
+            border-bottom: 3px solid #3498db;
         }
         
-        .methodology h2 {
+        .prompt-section h2 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 25px;
@@ -185,12 +199,16 @@
             padding: 25px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            position: relative;
         }
         
         .prompt-box h3 {
             color: #2980b9;
             margin-bottom: 15px;
             font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .prompt-content {
@@ -200,12 +218,28 @@
             border-radius: 0 8px 8px 0;
             font-size: 1.1rem;
             line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
         }
         
         .highlight {
             background-color: #ffeaa7;
             padding: 2px 5px;
             border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
         }
         
         footer {
@@ -214,6 +248,79 @@
             background: linear-gradient(to right, #2c3e50, #1a2a6c);
             color: white;
             font-size: 1.1rem;
+        }
+        
+        .input-group {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .input-field {
+            flex: 1;
+        }
+        
+        .input-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .input-field input, .input-field textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .input-field textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .instructions {
+            text-align: center;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            margin: 20px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 220px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .step i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 15px;
         }
         
         @media (max-width: 900px) {
@@ -226,6 +333,10 @@
                 align-items: center;
                 gap: 15px;
             }
+            
+            .input-row {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 600px) {
@@ -236,30 +347,75 @@
             h1 {
                 font-size: 2.2rem;
             }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Metodologia de Análise Crítica</h1>
+            <h1><i class="fas fa-brain"></i> Metodologia de Análise Crítica</h1>
             <p class="subtitle">Ferramenta integrada para pesquisa e análise estratégica</p>
         </header>
         
         <div class="main-buttons">
-            <button class="main-btn research-btn">Pesquisa</button>
-            <button class="main-btn download-btn">Download</button>
+            <button class="main-btn research-btn" id="researchBtn">
+                <i class="fas fa-search"></i> Pesquisa
+            </button>
+            <button class="main-btn download-btn" id="downloadBtn">
+                <i class="fas fa-download"></i> Download
+            </button>
+        </div>
+        
+        <div class="input-group">
+            <div class="input-row">
+                <div class="input-field">
+                    <label for="theme"><i class="fas fa-book"></i> Tema a ser analisado:</label>
+                    <input type="text" id="theme" placeholder="Ex: Conflitos geopolíticos na região X">
+                </div>
+                <div class="input-field">
+                    <label for="interest"><i class="fas fa-bullseye"></i> Ponto de Interesse:</label>
+                    <input type="text" id="interest" placeholder="Ex: Influência econômica de país Y">
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-field">
+                    <label for="period"><i class="fas fa-calendar-alt"></i> Período de análise:</label>
+                    <input type="text" id="period" placeholder="Ex: Janeiro a Junho de 2025">
+                </div>
+            </div>
         </div>
         
         <div class="ia-buttons">
-            <button class="ia-btn" onclick="openIA('https://chatgpt.com/')">ChatGPT</button>
-            <button class="ia-btn" onclick="openIA('https://gemini.google.com/app')">Gemini</button>
-            <button class="ia-btn" onclick="openIA('https://copilot.microsoft.com/')">Copilot</button>
-            <button class="ia-btn" onclick="openIA('https://notebooklm.google.com/')">NotebookLM</button>
-            <button class="ia-btn" onclick="openIA('https://chat.deepseek.com/')">DeepSeek</button>
-            <button class="ia-btn" onclick="openIA('https://chat.qwen.ai/')">Qwen</button>
-            <button class="ia-btn" onclick="openIA('https://grok.com/')">Grok</button>
-            <button class="ia-btn" onclick="openIA('https://www.perplexity.ai/')">Perplexity</button>
+            <button class="ia-btn" onclick="openIA('https://chatgpt.com/')">
+                <i class="fab fa-android"></i> ChatGPT
+            </button>
+            <button class="ia-btn" onclick="openIA('https://gemini.google.com/app')">
+                <i class="fas fa-gem"></i> Gemini
+            </button>
+            <button class="ia-btn" onclick="openIA('https://copilot.microsoft.com/')">
+                <i class="fas fa-robot"></i> Copilot
+            </button>
+            <button class="ia-btn" onclick="openIA('https://notebooklm.google.com/')">
+                <i class="fas fa-book"></i> NotebookLM
+            </button>
+            <button class="ia-btn" onclick="openIA('https://chat.deepseek.com/')">
+                <i class="fas fa-search"></i> DeepSeek
+            </button>
+            <button class="ia-btn" onclick="openIA('https://chat.qwen.ai/')">
+                <i class="fas fa-microchip"></i> Qwen
+            </button>
+            <button class="ia-btn" onclick="openIA('https://grok.com/')">
+                <i class="fas fa-rocket"></i> Grok
+            </button>
+            <button class="ia-btn" onclick="openIA('https://www.perplexity.ai/')">
+                <i class="fas fa-question-circle"></i> Perplexity
+            </button>
         </div>
         
         <div class="browser-container">
@@ -269,109 +425,187 @@
                     <div class="control-btn minimize"></div>
                     <div class="control-btn maximize"></div>
                 </div>
-                <div class="url-bar" id="current-url">https://www.example.com</div>
+                <div class="url-bar" id="current-url">https://chatgpt.com/</div>
             </div>
-            <iframe id="ia-browser" src="about:blank"></iframe>
+            <iframe id="ia-browser" src="https://chatgpt.com/"></iframe>
         </div>
         
-        <div class="methodology">
-            <h2>Metodologia de Pesquisa</h2>
+        <div class="instructions">
+            <h3>Como utilizar esta ferramenta:</h3>
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-edit"></i>
+                    <h4>Passo 1</h4>
+                    <p>Preencha os campos acima com o tema, ponto de interesse e período</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-copy"></i>
+                    <h4>Passo 2</h4>
+                    <p>Clique em "Pesquisa" para copiar o prompt para a área de transferência</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-window-restore"></i>
+                    <h4>Passo 3</h4>
+                    <p>Selecione uma IA e cole o prompt na janela de conversa</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-download"></i>
+                    <h4>Passo 4</h4>
+                    <p>Clique em "Download" para salvar o resultado como ODT</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="prompt-section">
+            <h2><i class="fas fa-code"></i> Prompt para Pesquisa</h2>
             <div class="prompt-box">
-                <h3>Prompt para Pesquisa:</h3>
-                <div class="prompt-content">
-                    <p>Quero que você atue como um analista de inteligência ou analista de eventos estratégicos.</p>
-                    
-                    <p><span class="highlight">Tema a ser analisado:</span> [INSERIR TEMA AQUI]</p>
-                    <p><span class="highlight">Ponto de Interesse:</span> [INSERIR PONTO DE INTERESSE AQUI]</p>
-                    <p><span class="highlight">Período de análise:</span> [INSERIR INTERVALO DE TEMPO, ex: janeiro a junho de 2025]</p>
-                    
-                    <p>Utilize a seguinte metodologia estruturada:</p>
-                    
-                    <p><strong>1. Problema</strong><br>
-                    Com base no tema acima, faça uma contextualização inicial respondendo objetivamente às perguntas do método 5W2H:</p>
-                    <ul>
-                        <li>What (O que ocorreu?)</li>
-                        <li>Who (Quem está envolvido?)</li>
-                        <li>When (Quando ocorreu ou teve início?)</li>
-                        <li>Where (Onde ocorreu?)</li>
-                        <li>Why (Por que ocorreu?)</li>
-                        <li>How (Como se desenvolveu?)</li>
-                        <li>How much (Quais os impactos ou proporção do evento?)</li>
-                    </ul>
-                    
-                    <p><strong>2. Aspectos Essenciais (AE)</strong><br>
-                    Construa de 3 a 7 perguntas analíticas aprofundadas que me ajudem a entender melhor o tema. As perguntas devem explorar:</p>
-                    <ul>
-                        <li>Causas e consequências</li>
-                        <li>Envolvimento de atores nacionais e internacionais</li>
-                        <li>Impacto estratégico, econômico, social ou ambiental</li>
-                        <li>Conexões com outros eventos ou políticas</li>
-                    </ul>
-                    
-                    <p><strong>3. Aspectos Conhecidos (AC)</strong><br>
-                    Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudam a responder os AE.</p>
-                    
-                    <p><strong>4. Frações Significativas</strong><br>
-                    Após a pesquisa do AC, identifique entre 3 a 5 <strong>frações temáticas ou pontos críticos</strong> que se destacam no tema analisado. Cada fração deve ser acompanhada de um pequeno resumo analítico e a fonte que embasa a sua relevância.</p>
-                    
-                    <p><strong>5. Respostas dos AE com base nos AC</strong><br>
-                    Para cada uma das perguntas formuladas no item 2, responda com base nos dados encontrados nas fontes (AC), citando o trecho da fonte e indicando claramente a origem (ex: portal, data, autor).</p>
-                    
-                    <p><strong>6. Texto Final</strong><br>
-                    Redija um texto estruturado com:</p>
-                    <ul>
-                        <li><strong>Introdução</strong>: contextualização geral do tema</li>
-                        <li><strong>Desenvolvimento</strong>: exposição cronológica e argumentativa dos fatos com base nas respostas dos AE</li>
-                        <li><strong>Conclusão</strong>: resumo final dos fatos abordados, sem emitir opinião pessoal ou juízo de valor</li>
-                    </ul>
-                    
-                    <p>Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.</p>
+                <h3><i class="fas fa-terminal"></i> Estrutura do Prompt:</h3>
+                <div class="prompt-content" id="promptContent">
+Quero que você atue como um analista de inteligência ou analista de eventos estratégicos.
+
+Tema a ser analisado: [INSERIR TEMA AQUI] 
+Ponto de Interesse: [INSERIR PONTO DE INTERESSE AQUI] 
+Período de análise: [INSERIR INTERVALO DE TEMPO, ex: janeiro a junho de 2025]
+
+Utilize a seguinte metodologia estruturada:
+
+1. **Problema**  
+   Com base no tema acima, faça uma contextualização inicial respondendo objetivamente às perguntas do método 5W2H:  
+   - What (O que ocorreu?)  
+   - Who (Quem está envolvido?)  
+   - When (Quando ocorreu ou teve início?)  
+   - Where (Onde ocorreu?)  
+   - Why (Por que ocorreu?)  
+   - How (Como se desenvolveu?)  
+   - How much (Quais os impactos ou proporção do evento?)
+
+2. **Aspectos Essenciais (AE)**  
+   Construa de 3 a 7 perguntas analíticas aprofundadas que me ajudem a entender melhor o tema. As perguntas devem explorar:
+   - Causas e consequências
+   - Envolvimento de atores nacionais e internacionais
+   - Impacto estratégico, econômico, social ou ambiental
+   - Conexões com outros eventos ou políticas
+
+3. **Aspectos Conhecidos (AC)**  
+   Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudam a responder os AE.
+
+4. **Frações Significativas**  
+   Após a pesquisa do AC, identifique entre 3 a 5 **frações temáticas ou pontos críticos** que se destacam no tema analisado. Cada fração deve ser acompanhada de um pequeno resumo analítico e a fonte que embasa a sua relevância. Exemplos:
+   - Fração 1: [Título ou conceito-chave]  
+     - Resumo: [Explicação ou relevância]  
+     - Fonte: [Citação]
+
+5. **Respostas dos AE com base nos AC**  
+   Para cada uma das perguntas formuladas no item 2, responda com base nos dados encontrados nas fontes (AC), citando o trecho da fonte e indicando claramente a origem (ex: portal, data, autor).
+
+6. **Texto Final**  
+   Redija um texto estruturado com:
+   - **Introdução**: contextualização geral do tema
+   - **Desenvolvimento**: exposição cronológica e argumentativa dos fatos com base nas respostas dos AE
+   - **Conclusão**: resumo final dos fatos abordados, sem emitir opinião pessoal ou juízo de valor
+
+Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>Aplicação de Pesquisa em IA | Metodologia de Análise Crítica | © 2025</p>
+            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica | Desenvolvido para Profissionais de Inteligência</p>
         </footer>
     </div>
 
+    <div class="copy-notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Prompt copiado para a área de transferência!
+    </div>
+
     <script>
+        // Função para abrir sites de IA no iframe
         function openIA(url) {
             document.getElementById('ia-browser').src = url;
             document.getElementById('current-url').textContent = url;
         }
         
-        // Set initial IA
-        openIA('https://chatgpt.com/');
-        
-        // Add button effects
-        const buttons = document.querySelectorAll('.main-btn, .ia-btn');
-        buttons.forEach(button => {
-            button.addEventListener('mousedown', () => {
-                button.style.transform = 'translateY(2px)';
-                button.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
-            });
+        // Gerar prompt personalizado
+        function generatePrompt() {
+            const theme = document.getElementById('theme').value || '[INSERIR TEMA AQUI]';
+            const interest = document.getElementById('interest').value || '[INSERIR PONTO DE INTERESSE AQUI]';
+            const period = document.getElementById('period').value || '[INSERIR INTERVALO DE TEMPO, ex: janeiro a junho de 2025]';
             
-            button.addEventListener('mouseup', () => {
-                button.style.transform = '';
-                button.style.boxShadow = '';
-            });
+            return `Quero que você atue como um analista de inteligência ou analista de eventos estratégicos.
+
+Tema a ser analisado: ${theme}
+Ponto de Interesse: ${interest}
+Período de análise: ${period}
+
+Utilize a seguinte metodologia estruturada:
+
+1. **Problema**  
+   Com base no tema acima, faça uma contextualização inicial respondendo objetivamente às perguntas do método 5W2H:  
+   - What (O que ocorreu?)  
+   - Who (Quem está envolvido?)  
+   - When (Quando ocorreu ou teve início?)  
+   - Where (Onde ocorreu?)  
+   - Why (Por que ocorreu?)  
+   - How (Como se desenvolveu?)  
+   - How much (Quais os impactos ou proporção do evento?)
+
+2. **Aspectos Essenciais (AE)**  
+   Construa de 3 a 7 perguntas analíticas aprofundadas que me ajudem a entender melhor o tema. As perguntas devem explorar:
+   - Causas e consequências
+   - Envolvimento de atores nacionais e internacionais
+   - Impacto estratégico, econômico, social ou ambiental
+   - Conexões com outros eventos ou políticas
+
+3. **Aspectos Conhecidos (AC)**  
+   Faça uma pesquisa ampla, utilizando fontes abertas confiáveis (OSINT), como portais de notícias, estudos técnicos, relatórios oficiais, artigos e dados públicos. Liste as fontes utilizadas e destaque trechos relevantes que ajudam a responder os AE.
+
+4. **Frações Significativas**  
+   Após a pesquisa do AC, identifique entre 3 a 5 **frações temáticas ou pontos críticos** que se destacam no tema analisado. Cada fração deve ser acompanhada de um pequeno resumo analítico e a fonte que embasa a sua relevância.
+
+5. **Respostas dos AE com base nos AC**  
+   Para cada uma das perguntas formuladas no item 2, responda com base nos dados encontrados nas fontes (AC), citando o trecho da fonte e indicando claramente a origem (ex: portal, data, autor).
+
+6. **Texto Final**  
+   Redija um texto estruturado com:
+   - **Introdução**: contextualização geral do tema
+   - **Desenvolvimento**: exposição cronológica e argumentativa dos fatos com base nas respostas dos AE
+   - **Conclusão**: resumo final dos fatos abordados, sem emitir opinião pessoal ou juízo de valor
+
+Formate todo o conteúdo de forma clara, coesa, técnica e objetiva.`;
+        }
+        
+        // Copiar prompt para área de transferência
+        document.getElementById('researchBtn').addEventListener('click', function() {
+            const promptText = generatePrompt();
             
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = '';
-                button.style.boxShadow = '';
+            // Copiar para área de transferência
+            navigator.clipboard.writeText(promptText).then(() => {
+                // Mostrar notificação
+                const notification = document.getElementById('copyNotification');
+                notification.style.display = 'block';
+                
+                // Esconder notificação após 3 segundos
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
             });
         });
         
-        // Research button functionality
-        document.querySelector('.research-btn').addEventListener('click', function() {
-            alert('Pesquisa iniciada! Utilize o prompt fornecido na seção de metodologia com uma das IAs disponíveis.');
+        // Simular download (funcionalidade completa requer backend)
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            alert('Documento ODT gerado com sucesso!\n\nFormatação aplicada:\n- Fonte: Calibri\n- Tamanho: 12\n- Texto Justificado\n\nEm uma implementação completa, esta função geraria um arquivo .odt com o conteúdo formatado.');
         });
         
-        // Download button functionality
-        document.querySelector('.download-btn').addEventListener('click', function() {
-            alert('Documento ODT gerado com sucesso!\n\nFormatação aplicada:\n- Fonte: Calibri\n- Tamanho: 12\n- Texto Justificado');
+        // Atualizar prompt ao digitar
+        const inputs = document.querySelectorAll('#theme, #interest, #period');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                document.getElementById('promptContent').textContent = generatePrompt();
+            });
         });
+        
+        // Inicializar com o prompt padrão
+        document.getElementById('promptContent').textContent = generatePrompt();
     </script>
 </body>
 </html>
