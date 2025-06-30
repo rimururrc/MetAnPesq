@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferramenta de Pesquisa</title>
+    <title>Analista de Inteligência - Ferramenta de Pesquisa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -33,7 +33,7 @@
             background: linear-gradient(to right, #1e3c72, #2a5298);
             color: white;
             text-align: center;
-            padding: 25px 20px;
+            padding: 30px 20px;
             border-bottom: 3px solid #ff9d00;
         }
         
@@ -123,132 +123,80 @@
             transform: translateY(1px);
         }
         
-        .ia-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 15px 25px;
+        .ia-section {
+            padding: 25px;
             background-color: #e3f2fd;
-            justify-content: center;
             border-top: 2px solid #bbdefb;
             border-bottom: 2px solid #bbdefb;
         }
         
-        .ia-btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
+        .ia-section h2 {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .ia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .ia-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .ia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: #1e88e5;
+        }
+        
+        .ia-header {
+            padding: 20px;
             background: linear-gradient(to right, #5e35b1, #4527a0);
+            color: white;
+        }
+        
+        .ia-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .ia-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .ia-content {
+            padding: 20px;
+        }
+        
+        .ia-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(to right, #1e88e5, #0d47a1);
             color: white;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .ia-btn:hover {
-            background: linear-gradient(to right, #4527a0, #311b92);
-            transform: translateY(-2px);
-        }
-        
-        .browser-container {
-            background: white;
-            padding: 5px;
-            margin: 0 25px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            min-height: 500px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .brave-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 157, 0, 0.9);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .browser-header {
-            background: linear-gradient(to right, #1a237e, #283593);
-            padding: 10px 15px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .browser-controls {
-            display: flex;
-            gap: 8px;
-            margin-right: 15px;
-        }
-        
-        .control-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .close { background-color: #f44336; }
-        .minimize { background-color: #ffc107; }
-        .maximize { background-color: #4caf50; }
-        
-        .url-bar {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 8px 20px;
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 0.9rem;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        
-        .url-bar::before {
-            content: "🔒";
-            font-size: 0.9rem;
-        }
-        
-        .brave-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            background: #ff9d00;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
+            width: 100%;
         }
         
-        iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+        .ia-btn:hover {
+            background: linear-gradient(to right, #0d47a1, #1a237e);
         }
         
         .copy-notification {
@@ -291,15 +239,8 @@
                 gap: 15px;
             }
             
-            .ia-buttons {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding: 12px;
-            }
-            
-            .ia-btn {
-                flex-shrink: 0;
+            .ia-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
         }
         
@@ -308,13 +249,8 @@
                 font-size: 2rem;
             }
             
-            .ia-btn {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-            
-            .browser-container {
-                margin: 0 15px 15px;
+            .ia-card {
+                min-width: 100%;
             }
         }
     </style>
@@ -323,7 +259,7 @@
     <div class="container">
         <header>
             <h1><i class="fas fa-search"></i> Metodologia de Análise Crítica</h1>
-            <p class="subtitle">Ferramenta integrada para pesquisa estratégica com navegação Brave</p>
+            <p class="subtitle">Ferramenta integrada para pesquisa estratégica</p>
         </header>
         
         <div class="input-group">
@@ -355,53 +291,141 @@
             </div>
         </div>
         
-        <div class="ia-buttons">
-            <button class="ia-btn" onclick="openIA('https://chatgpt.com/')">
-                <i class="fab fa-android"></i> ChatGPT
-            </button>
-            <button class="ia-btn" onclick="openIA('https://gemini.google.com/app')">
-                <i class="fas fa-gem"></i> Gemini
-            </button>
-            <button class="ia-btn" onclick="openIA('https://copilot.microsoft.com/')">
-                <i class="fas fa-robot"></i> Copilot
-            </button>
-            <button class="ia-btn" onclick="openIA('https://notebooklm.google.com/')">
-                <i class="fas fa-book"></i> NotebookLM
-            </button>
-            <button class="ia-btn" onclick="openIA('https://chat.deepseek.com/')">
-                <i class="fas fa-search"></i> DeepSeek
-            </button>
-            <button class="ia-btn" onclick="openIA('https://chat.qwen.ai/')">
-                <i class="fas fa-microchip"></i> Qwen
-            </button>
-            <button class="ia-btn" onclick="openIA('https://grok.com/')">
-                <i class="fas fa-rocket"></i> Grok
-            </button>
-            <button class="ia-btn" onclick="openIA('https://www.perplexity.ai/')">
-                <i class="fas fa-question-circle"></i> Perplexity
-            </button>
-        </div>
-        
-        <div class="browser-container">
-            <div class="brave-badge">
-                <i class="fas fa-shield-alt"></i> Navegador Brave - Modo Privado
-            </div>
-            <div class="browser-header">
-                <div class="browser-controls">
-                    <div class="control-btn close"></div>
-                    <div class="control-btn minimize"></div>
-                    <div class="control-btn maximize"></div>
+        <div class="ia-section">
+            <h2><i class="fas fa-robot"></i> Acesse as Ferramentas de IA</h2>
+            <div class="ia-grid">
+                <!-- ChatGPT -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fab fa-android"></i>
+                        </div>
+                        <div class="ia-name">ChatGPT</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>IA de linguagem avançada da OpenAI para diálogos e geração de texto</p>
+                        <button class="ia-btn" onclick="openIA('https://chatgpt.com/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar ChatGPT
+                        </button>
+                    </div>
                 </div>
-                <div class="url-bar" id="current-url">
-                    <div class="brave-icon">B</div>
-                    https://search.brave.com
+                
+                <!-- Gemini -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="ia-name">Gemini</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>IA multimodal do Google para conversação e pesquisa avançada</p>
+                        <button class="ia-btn" onclick="openIA('https://gemini.google.com/app')">
+                            <i class="fas fa-external-link-alt"></i> Acessar Gemini
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Copilot -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="ia-name">Copilot</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>Assistente de IA da Microsoft integrado ao Bing para pesquisa</p>
+                        <button class="ia-btn" onclick="openIA('https://copilot.microsoft.com/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar Copilot
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- NotebookLM -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="ia-name">NotebookLM</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>IA do Google especializada em análise de documentos e pesquisa</p>
+                        <button class="ia-btn" onclick="openIA('https://notebooklm.google.com/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar NotebookLM
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- DeepSeek -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="ia-name">DeepSeek</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>IA especializada em pesquisa aprofundada e análise de dados</p>
+                        <button class="ia-btn" onclick="openIA('https://chat.deepseek.com/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar DeepSeek
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Qwen -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="ia-name">Qwen</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>Modelo de linguagem de grande escala da Alibaba Cloud</p>
+                        <button class="ia-btn" onclick="openIA('https://chat.qwen.ai/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar Qwen
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Grok -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="ia-name">Grok</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>IA da xAI com acesso em tempo real ao conhecimento</p>
+                        <button class="ia-btn" onclick="openIA('https://grok.com/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar Grok
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Perplexity -->
+                <div class="ia-card">
+                    <div class="ia-header">
+                        <div class="ia-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="ia-name">Perplexity</div>
+                    </div>
+                    <div class="ia-content">
+                        <p>IA de busca que responde perguntas com fontes citadas</p>
+                        <button class="ia-btn" onclick="openIA('https://www.perplexity.ai/')">
+                            <i class="fas fa-external-link-alt"></i> Acessar Perplexity
+                        </button>
+                    </div>
                 </div>
             </div>
-            <iframe id="ia-browser" src="https://search.brave.com"></iframe>
         </div>
         
         <footer>
-            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica com Navegador Brave</p>
+            <p><i class="fas fa-copyright"></i> 2025 - Ferramenta de Análise Estratégica | Acesse diretamente as melhores IAs</p>
         </footer>
     </div>
 
@@ -410,13 +434,9 @@
     </div>
 
     <script>
-        // Função para abrir sites de IA no iframe
+        // Função para abrir sites de IA em nova aba
         function openIA(url) {
-            document.getElementById('ia-browser').src = url;
-            document.getElementById('current-url').innerHTML = `
-                <div class="brave-icon">B</div>
-                ${url}
-            `;
+            window.open(url, '_blank');
         }
         
         // Gerar prompt de pesquisa
@@ -528,9 +548,6 @@ O documento deve estar pronto para edição posterior e compatível com programa
                 }, 3000);
             });
         });
-        
-        // Inicializar com o navegador Brave
-        openIA('https://search.brave.com');
     </script>
 </body>
 </html>
